@@ -1,0 +1,34 @@
+---
+- name: My test playbook
+  hosts: all
+  become: true
+  tasks:
+  - name: to install java for RedHat
+    yum:
+      name: java
+      state: installed
+    when: ansible_os_family == "RedHat"
+  - name: to install Java for Debian
+    apt:
+      name: default-jdk
+      state: present
+    when: ansible_os_family == "Debian"
+  - name: to download tomcat
+    get_url:
+        url: https://downloads.apache.org/tomcat/tomcat-9/v9.0.85/bin/apache-tomcat-9.0.85.tar.gz            
+        dest: /opt
+  - name: Extract Tomcat Archive
+    unarchive:
+       src: /opt/apache-tomcat-9.0.85.tar.gz
+       dest: /opt
+       remote_src: yes
+  - name: for set permission 
+    file:
+      path: /opt/apache-tomcat-9.0.85/bin
+      mode: 0777
+  - name: to start tomcat
+    shell: nohup ./startup.sh
+    args:
+      chdir: /opt/apache-tomcat-9.0.85/bin
+    
+    

@@ -1,0 +1,9 @@
+---
+- name: This playbook create a single user
+  hosts: all
+  become: true
+  tasks:
+  - name: create a single user Rohit
+    user:
+      name: Rohit
+      state: present

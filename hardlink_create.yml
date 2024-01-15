@@ -1,0 +1,12 @@
+---
+- name: This playbook create a hardlink file
+  hosts: all
+  become: true
+  tasks:
+  - name: creating a hardlink file
+    file:
+      src: /home/ansadmin/saifile1
+      dest: /home/ansadmin/harifile
+      state: hard
+
+          

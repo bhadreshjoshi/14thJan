@@ -1,0 +1,33 @@
+---
+# tasks file for setup-apache-role
+- name: Install httpd for RedHat
+  yum:
+    name: httpd
+    state: installed
+  when: ansible_os_family == "RedHat"
+  notify: start httpd
+
+- name: Installed apache2 for Debian
+  apt:
+    name: apache2
+    state: present
+  when: ansible_os_family == "Debian"
+  notify: start apache2
+
+- name: copy index file
+  copy:
+    src: /home/ansadmin/index.html
+    dest: /var/www/html
+    mode: 0777
+
+- name: to create user {{ user }}
+  user:
+    name: "{{ user }}"
+    state: present
+
+
+
+        
+
+      
+

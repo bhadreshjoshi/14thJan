@@ -1,0 +1,13 @@
+---
+- name: My test playbook
+  hosts: all
+  become: true
+  tasks:
+  vars_files:
+    - user.yml
+  tasks:
+  - name: to create multi {{ user1 }}
+    user:
+      name: "{{ user1 }}"
+      state: present    
+
